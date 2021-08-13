@@ -17,6 +17,8 @@ export default {
     return {
       image: null,
       inputImage: "",
+      naturalWidth: 0,
+      naturalHeight: 0,
       imageWidth: 0,
       imageHeight: 0,
       innerWidth: 0,
@@ -34,11 +36,11 @@ export default {
       this.innerWidth = e.target.innerWidth
       this.innerHeight = e.target.innerHeight
 
-      if (this.imageHeight > this.imageWidth) {
+      if (this.naturalHeight > this.naturalWidth) {
         const aspectRatio = 4 / 5
         this.imageHeight = this.innerHeight / 2 + "px"
         this.imageWidth = this.innerHeight / 2 * aspectRatio + "px"
-      } else if (this.imageHeight < this.imageWidth) {
+      } else if (this.naturalHeight < this.naturalWidth) {
         const aspectRatio = 16 / 9
         this.imageHeight = this.innerWidth / 2 / aspectRatio + "px"
         this.imageWidth = this.innerWidth / 2 + "px"
@@ -50,6 +52,8 @@ export default {
       newImg.onload = () => {
         const inputWidth = newImg.naturalWidth;
         const inputHeight = newImg.naturalHeight;
+        this.naturalHeight = inputHeight
+        this.naturalWidth = inputWidth
 
         if (inputHeight > inputWidth) {
           const aspectRatio = 4 / 5
@@ -84,6 +88,10 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  img {
+    object-fit: cover;
   }
 
   @media screen and (max-width: 767px) {
